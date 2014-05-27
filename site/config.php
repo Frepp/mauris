@@ -10,25 +10,58 @@
 error_reporting(-1);
 ini_set('display_errors', 1);
 
+
+
+/**
+* Set what to show as debug or developer information in the get_debug() theme helper.
+*/
+$ma->config['debug']['mauris'] = true;
+$ma->config['debug']['session'] = true;
+$ma->config['debug']['timer'] = false;
+$ma->config['debug']['db-num-queries'] = true;
+$ma->config['debug']['db-queries'] = true;
+
+
+/**
+* What type of urls should be used?
+* 
+* default      = 0      => index.php/controller/method/arg1/arg2/arg3
+* clean        = 1      => controller/method/arg1/arg2/arg3
+* querystring  = 2      => index.php?q=controller/method/arg1/arg2/arg3
+*/
+$ma->config['url_type'] = 1;
+
+
+/**
+* Set a base_url to use another than the default calculated
+*/
+$ma->config['base_url'] = null;
+
+
 /*
 * Define session name
 */
 $ma->config['session_name'] = preg_replace('/[:\.\/-_]/', '', $_SERVER["SERVER_NAME"]);
+$ma->config['session_key']  = 'mauris';
+
 
 /*
 * Define server timezone
 */
 $ma->config['timezone'] = 'Europe/Stockholm';
 
+
 /*
 * Define internal character encoding
 */
 $ma->config['character_encoding'] = 'UTF-8';
 
+
 /*
 * Define language
 */
 $ma->config['language'] = 'en';
+
 
 /**
 * Define the controllers, their classname and enable/disable them.
@@ -42,7 +75,9 @@ $ma->config['language'] = 'en';
 $ma->config['controllers'] = array(
   'index'     => array('enabled' => true,'class' => 'CCIndex'),
   'developer'     => array('enabled' => true,'class' => 'CCDeveloper'),
+  'guestbook'     => array('enabled' => true,'class' => 'CCGuestbook'),
 );
+
 
 /**
 * Settings for the theme.
@@ -53,15 +88,6 @@ $ma->config['theme'] = array(
 );
 
 /**
-* Set a base_url to use another than the default calculated
+* Set database(s).
 */
-$ma->config['base_url'] = null;
-
-/**
-* What type of urls should be used?
-* 
-* default      = 0      => index.php/controller/method/arg1/arg2/arg3
-* clean        = 1      => controller/method/arg1/arg2/arg3
-* querystring  = 2      => index.php?q=controller/method/arg1/arg2/arg3
-*/
-$ma->config['url_type'] = 1;
+$ma->config['database'][0]['dsn'] = 'sqlite:' . MAURIS_SITE_PATH . '/data/.ht.sqlite';

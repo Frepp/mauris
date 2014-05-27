@@ -6,7 +6,7 @@
 define('MAURIS_INSTALL_PATH', dirname(__FILE__));
 define('MAURIS_SITE_PATH', MAURIS_INSTALL_PATH . '/site');
 
-require(MAURIS_INSTALL_PATH.'/src/CMauris/bootstrap.php');
+require(MAURIS_INSTALL_PATH.'/src/bootstrap.php');
 
 $ma = CMauris::Instance();
 
