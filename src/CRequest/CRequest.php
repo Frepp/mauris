@@ -69,6 +69,13 @@ class CRequest {
 		if(substr_compare($requestUri, $scriptName, 0)) {
 	    $scriptPart = dirname($scriptName);
 		}
+		
+		// Set query to be everything after base_url, except the optional querystring
+		$query = trim(substr($requestUri, strlen(rtrim($scriptPart, '/'))), '/');
+		$pos = strcspn($query, '?');
+    if($pos) {
+      $query = substr($query, 0, $pos);    
+    }
 
 		// Set query to be everything after base_url, except the optional querystring
 		$query = trim(substr($requestUri, strlen(rtrim($scriptPart, '/'))), '/');

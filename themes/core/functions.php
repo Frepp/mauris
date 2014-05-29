@@ -2,9 +2,14 @@
 /**
 * Helpers for the template file.
 */
-$ma->data['header'] = '<h1>Header: Mauris</h1>';
-if(!isset($ma->data['main'])){
-$ma->data['main']   = '<p>Main: Now with a theme engine, Not much more to report for now.</p>';
-}
+/**
+ * Add static entries for use in the template file. 
+ */
+$ma->data['header'] = 'Mauris';
+$ma->data['slogan'] = '"A complex way to make it simple"';
+$ma->data['favicon']      = theme_url('logo.png');
+$ma->data['logo']         = theme_url('logo.png');
+$ma->data['logo_width']   = 80;
+$ma->data['logo_height']  = 80;
 $ma->data['footer'] = '<p>Footer: &copy; Mauris by Fredrik Petersson based on Lydia &copy; Mikael Roos (mos@dbwebb.se)</p>';
 

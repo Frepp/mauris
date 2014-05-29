@@ -1,14 +1,15 @@
 <?php
 /**
-* Helpers for theming, available for all themes in their template files and functions.php.
-* This file is included right before the themes own functions.php
-*/
+ * Helpers for theming, available for all themes in their template files and functions.php.
+ * This file is included right before the themes own functions.php
+ */
+ 
 
 /**
  * Print debuginformation from the framework.
  */
 function get_debug() {
-  // Only if debug is wanted.
+  // Onma if debug is wanted.
   $ma = CMauris::Instance();  
   if(empty($ma->config['debug'])) {
     return;
@@ -42,9 +43,10 @@ function get_debug() {
   return $html;
 }
 
+
 /**
-* Get messages stored in flash-session.
-*/
+ * Get messages stored in flash-session.
+ */
 function get_messages_from_session() {
   $messages = CMauris::Instance()->session->GetMessages();
   $html = null;
@@ -58,23 +60,72 @@ function get_messages_from_session() {
   return $html;
 }
 
+
 /**
-* Create a url by prepending the base_url.
-*/
-function base_url($url) {
+ * Login menu. Creates a menu which reflects if user is logged in or not.
+ */
+function login_menu() {
+  $ma = CMauris::Instance();
+  if($ma->user['isAuthenticated']) {
+    $items = "<a href='" . create_url('user/profile') . "'><img class='gravatar' src='" . get_gravatar(20) . "' alt=''> " . $ma->user['acronym'] . "</a> ";
+    if($ma->user['hasRoleAdministrator']) {
+      $items .= "<a href='" . create_url('acp') . "'>acp</a> ";
+    }
+    $items .= "<a href='" . create_url('user/logout') . "'>logout</a> ";
+  } else {
+    $items = "<a href='" . create_url('user/login') . "'>login</a> ";
+  }
+  return "<nav>$items</nav>";
+}
+
+
+/**
+ * Prepend the base_url.
+ */
+function base_url($url=null) {
   return CMauris::Instance()->request->base_url . trim($url, '/');
 }
 
+
 /**
-* Return the current url.
-*/
+ * Create a url to an internal resource.
+ *
+ * @param string the whole url or the controller. Leave empty for current controller.
+ * @param string the method when specifying controller as first argument, else leave empty.
+ * @param string the extra arguments to the method, leave empty if not using method.
+ */
+function create_url($urlOrController=null, $method=null, $arguments=null) {
+  return CMauris::Instance()->request->CreateUrl($urlOrController, $method, $arguments);
+}
+
+
+/**
+ * Prepend the theme_url, which is the url to the current theme directory.
+ */
+function theme_url($url) {
+  $ma = CMauris::Instance();
+  return "{$ma->request->base_url}themes/{$ma->config['theme']['name']}/{$url}";
+}
+
+
+/**
+ * Return the current url.
+ */
 function current_url() {
   return CMauris::Instance()->request->current_url;
 }
 
+
 /**
-* Render all views.
-*/
+ * Render all views.
+ */
 function render_views() {
   return CMauris::Instance()->views->Render();
+}
+
+/**
+* Get a gravatar based on the user's email.
+*/
+function get_gravatar($size=null) {
+  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CMauris::Instance()->user['email']))) . '.jpg?' . ($size ? "s=$size" : null);
 }

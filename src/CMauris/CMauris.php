@@ -12,31 +12,37 @@ class CMauris implements ISingleton {
 	public $data = null;
 	public $db = null;
 
-   /**
-    * Constructor
-    */
-   protected function __construct() {
-      	// include the site specific config.php and create a ref to $ma to be used by config.php
-      $ma = &$this;
-      require(MAURIS_SITE_PATH.'/config.php');
-	  
-	  	// Start a named session
-		session_name($this->config['session_name']);
-      	session_start();
-      	$this->session = new CSession($this->config['session_key']);
-      	$this->session->PopulateFromSession();
-
-		// Set default date/time-zone
-		date_default_timezone_set($this->config['timezone']);
-		
-		// Create a database object.
-      if(isset($this->config['database'][0]['dsn'])) {
-        $this->db = new CMDatabase($this->config['database'][0]['dsn']);
-     }
-	 
-		// Create a container for all views and theme data
-     $this->views = new CViewContainer();
-   }
+  /**
+   * Constructor
+   */
+  protected function __construct() {
+    // time page generation
+    $this->timer['first'] = microtime(true); 
+    
+    // include the site specific config.php and create a ref to $ma to be used by config.php
+    $ma = &$this;
+    require(MAURIS_SITE_PATH.'/config.php');
+    
+    // Start a named session
+    session_name($this->config['session_name']);
+    session_start();
+    $this->session = new CSession($this->config['session_key']);
+    $this->session->PopulateFromSession();
+    
+    // Set default date/time-zone
+    date_default_timezone_set($this->config['timezone']);
+    
+    // Create a database object.
+    if(isset($this->config['database'][0]['dsn'])) {
+      $this->db = new CDatabase($this->config['database'][0]['dsn']);
+    }
+    
+    // Create a container for all views and theme data
+    $this->views = new CViewContainer();
+    
+    // Create a object for the user
+    $this->user = new CMUser($this);
+  }
    
    /**
     * Singleton pattern. Get the instance of the latest created object or create a new one. 
