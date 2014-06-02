@@ -58,6 +58,7 @@ class CMModules extends CObject {
           $modules[$module]['isController']  = $rc->implementsInterface('IController');
           $modules[$module]['isModel']       = preg_match('/^CM[A-Z]/', $rc->name);
           $modules[$module]['hasSQL']        = $rc->implementsInterface('IHasSQL');
+		  $modules[$module]['isManageable']  = $rc->implementsInterface('IModule');
           $modules[$module]['isMaurisCore']   = in_array($rc->name, array('CMauris', 'CDatabase', 'CRequest', 'CViewContainer', 'CSession', 'CObject'));
           $modules[$module]['isMaurisCMF']    = in_array($rc->name, array('CForm', 'CCPage', 'CCBlog', 'CMUser', 'CCUser', 'CMContent', 'CCContent', 'CFormUserLogin', 'CFormUserProfile', 'CFormUserCreate', 'CFormContent', 'CHTMLPurifier'));
         }
