@@ -52,7 +52,7 @@ class CMContent extends CObject implements IHasSQL, ArrayAccess, IModule {
       'select * by key'         => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE c.key=?;',
 	  'select * by type'        => "SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id WHERE type=? ORDER BY {$order_by} {$order_order};",
       'select *'                => 'SELECT c.*, u.acronym as owner FROM Content AS c INNER JOIN User as u ON c.idUser=u.id;',
-      'update content'          => "UPDATE Content SET key=?, type=?, title=?, data=?, updated=datetime('now') WHERE id=?;",
+      'update content'          => "UPDATE Content SET key=?, type=?, title=?, data=?, filter=?, updated=datetime('now') WHERE id=?;",
      );
     if(!isset($queries[$key])) {
       throw new Exception("No such SQL query, key '$key' was not found.");
