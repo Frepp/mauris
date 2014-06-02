@@ -87,7 +87,8 @@ $ma->config['controllers'] = array(
   'content'   => array('enabled' => true,'class' => 'CCContent'),
   'blog'      => array('enabled' => true,'class' => 'CCBlog'),
   'page'      => array('enabled' => true,'class' => 'CCPage'),
-  'theme'     => array('enabled' => true,'class' => 'CCTheme')
+  'theme'     => array('enabled' => true,'class' => 'CCTheme'),
+  'modules'     => array('enabled' => true,'class' => 'CCModules')
 );
 
 
