@@ -88,24 +88,56 @@ $ma->config['controllers'] = array(
   'blog'      => array('enabled' => true,'class' => 'CCBlog'),
   'page'      => array('enabled' => true,'class' => 'CCPage'),
   'theme'     => array('enabled' => true,'class' => 'CCTheme'),
-  'modules'     => array('enabled' => true,'class' => 'CCModules')
+  'module'     => array('enabled' => true,'class' => 'CCModules'),
+  'my'        => array('enabled' => true,'class' => 'CCMycontroller'),
 );
 
+/**
+* Define a routing table for urls.
+*
+* Route custom urls to a defined controller/method/arguments
+*/
+$ma->config['routing'] = array(
+  'home' => array('enabled' => true, 'url' => 'index/index'),
+);
+
+
+
+/**
+  * Define menus.
+  *
+  * Create hardcoded menus and map them to a theme region through $ly->config['theme'].
+  */
+ $ma->config['menus'] = array(
+   'navbar' => array(
+     'home'      => array('label'=>'Home', 'url'=>'home'),
+     'modules'   => array('label'=>'Modules', 'url'=>'module'),
+     'content'   => array('label'=>'Content', 'url'=>'content'),
+     'guestbook' => array('label'=>'Guestbook', 'url'=>'guestbook'),
+     'blog'      => array('label'=>'Blog', 'url'=>'blog'),
+	 ),
+   	'my-navbar' => array(
+     'home'      => array('label'=>'About Me', 'url'=>'my'),
+     'blog'      => array('label'=>'My Blog', 'url'=>'my/blog'),
+     'guestbook' => array('label'=>'Guestbook', 'url'=>'my/guestbook'),
+   ),
+ );
 
 /**
 * Settings for the theme.
 */
 $ma->config['theme'] = array(
-  'name'            => 'grid',            // The name of the theme in the theme directory
-  'stylesheet'      => 'style.php',       // Main stylesheet to include in template files
-  'template_file'   => 'index.tpl.php',   // Default template file, else use default.tpl.php
-  // A list of valid theme regions
-  'regions' => array('flash','featured-first','featured-middle','featured-last',
-    'primary','sidebar','triptych-first','triptych-middle','triptych-last',
-    'footer-column-one','footer-column-two','footer-column-three','footer-column-four',
-    'footer',
-  ),
-  // Add static entries for use in the template file. 
+  'path'            => 'site/themes/mytheme',
+  // 'path'            => 'themes/grid',
+   'parent'          => 'themes/grid',
+   'stylesheet'      => 'style.css',
+   'template_file'   => 'index.tpl.php',
+   'regions' => array('navbar', 'flash','featured-first','featured-middle','featured-last',
+      'primary','sidebar','triptych-first','triptych-middle','triptych-last',
+      'footer-column-one','footer-column-two','footer-column-three','footer-column-four',
+      'footer',
+    ),
+  'menu_to_region' => array('my-navbar'=>'navbar'), 
   'data' => array(
     'header' => 'Mauris',
     'slogan' => 'A complex way to make it simple',
@@ -127,5 +159,7 @@ $ma->config['hashing_algorithm'] = 'sha1salt';
 * Allow or disallow creation of new user accounts.
 */
 $ma->config['create_new_users'] = true;
+
+
 
 
