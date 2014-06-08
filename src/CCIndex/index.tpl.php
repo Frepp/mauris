@@ -2,7 +2,7 @@
 <p>Welcome to Mauris index controller.</p>
 
 <?php 
-if($link) {
+if($phpversion) {
 	echo "<div class='success'>Your PHP-version seems to be up to date. Great!</div>";	
 } else {
 	echo "<div class='error'>You're using an old PHP-version, please update the server. Click <a href='https://github.com/Frepp/mauris/blob/master/README.md#php-version'>here</a> to see further information!</div>";
