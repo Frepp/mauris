@@ -7,7 +7,7 @@
 /*
 * Set level of error reporting
 */
-error_reporting(-1);
+error_reporting(1);
 ini_set('display_errors', 1);
 
 
@@ -15,11 +15,11 @@ ini_set('display_errors', 1);
 /**
 * Set what to show as debug or developer information in the get_debug() theme helper.
 */
-$ma->config['debug']['mauris'] = true;
-$ma->config['debug']['session'] = true;
+$ma->config['debug']['mauris'] = false;
+$ma->config['debug']['session'] = false;
 $ma->config['debug']['timer'] = false;
-$ma->config['debug']['db-num-queries'] = true;
-$ma->config['debug']['db-queries'] = true;
+$ma->config['debug']['db-num-queries'] = false;
+$ma->config['debug']['db-queries'] = false;
 
 
 /**
@@ -106,7 +106,7 @@ $ma->config['routing'] = array(
 /**
   * Define menus.
   *
-  * Create hardcoded menus and map them to a theme region through $ly->config['theme'].
+  * Create hardcoded menus and map them to a theme region through $ma->config['theme'].
   */
  $ma->config['menus'] = array(
    'navbar' => array(
@@ -116,11 +116,6 @@ $ma->config['routing'] = array(
      'guestbook' => array('label'=>'Guestbook', 'url'=>'guestbook'),
      'blog'      => array('label'=>'Blog', 'url'=>'blog'),
 	 ),
-   	'my-navbar' => array(
-     'home'      => array('label'=>'About Me', 'url'=>'my'),
-     'blog'      => array('label'=>'My Blog', 'url'=>'my/blog'),
-     'guestbook' => array('label'=>'Guestbook', 'url'=>'my/guestbook'),
-   ),
  );
 
 /**
@@ -128,8 +123,7 @@ $ma->config['routing'] = array(
 */
 $ma->config['theme'] = array(
   'path'            => 'site/themes/mytheme',
-  // 'path'            => 'themes/grid',
-   'parent'          => 'themes/grid',
+   'parent'          => 'themes/standard',
    'stylesheet'      => 'style.css',
    'template_file'   => 'index.tpl.php',
    'regions' => array('navbar', 'flash','featured-first','featured-middle','featured-last',
@@ -137,7 +131,7 @@ $ma->config['theme'] = array(
       'footer-column-one','footer-column-two','footer-column-three','footer-column-four',
       'footer',
     ),
-  'menu_to_region' => array('my-navbar'=>'navbar'), 
+  'menu_to_region' => array('navbar'=>'navbar'), 
   'data' => array(
     'header' => 'Mauris',
     'slogan' => 'A complex way to make it simple',
